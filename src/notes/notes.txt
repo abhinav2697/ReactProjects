@@ -1,0 +1,44 @@
+props:
+to make the component dynamic we use props
+naming convention:props
+props is a object
+
+How to solve npm install error “npm ERR! code 1”
+delete package-lock.json and node_modules if exists
+npm cache clean --force
+npm install or npm install --legacy-peer-deps
+
+
+useState hook
+
+two way binding:
+Two-way data binding allows bidirectional data flow, meaning that changes in the UI automatically update the component's state, 
+and changes in the state automatically update the UI.
+ In React, two-way data binding is achieved using controlled components.
+
+ https://www.joshwcomeau.com/react/data-binding/
+
+ lift state up: 
+ we are lifting the state up from the child components to the parent components.
+ two child's in a single component cannot communicate with each other.
+
+Rendering of list:
+map function:
+list and keys
+
+sideeffects and useeffect:
+localstorage
+cleanup process
+
+
+firebase.com
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+
+https://github.com/axios/axios
+axios:
+https://legacy.reactjs.org/docs/lists-and-keys.html
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+
+portals
+modal
+Fragment
