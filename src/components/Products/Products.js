@@ -56,6 +56,7 @@ const Products = ({onAddItem,onRemoveItem}) => {
                 const transformData = data.map((item, index) => {
                     return {
                         ...item,
+                        quantity:0,
                         id: index
                     }
                 })
@@ -86,21 +87,24 @@ const Products = ({onAddItem,onRemoveItem}) => {
         fetchItems();
     }, [])
     const handleAddItem = id => {
-        if (presentItems.indexOf(id) > -1) {
-            return;
-        }
-        setPresentItems([...presentItems,id]);
-        onAddItem();
+        // if (presentItems.indexOf(id) > -1) {
+        //     return;
+        // }
+        // setPresentItems([...presentItems,id]);
+        // onAddItem();
+        let data = [...item]
+        let index = data.findIndex(i => i.id === id);
+        data[index].quantity+=1
         
     }
     const handleRemoveItem = id => {
-        let index = presentItems.indexOf(id)
-        if (index > -1) {
-            let items = [...presentItems]
-            items.splice(index,1)
-            setPresentItems([...items]);
-            onRemoveItem();
-        }
+        // let index = presentItems.indexOf(id)
+        // if (index > -1) {
+        //     let items = [...presentItems]
+        //     items.splice(index,1)
+        //     setPresentItems([...items]);
+        //     onRemoveItem();
+        // }
       
        
     }
