@@ -88,7 +88,7 @@ const Products = ({onAddItem,onRemoveItem,eventState}) => {
     }, [])
 
     useEffect(() => {
-        if (eventState.id) {
+        if (eventState.id>-1) {
             if (eventState.type === 1) {
                 handleAddItem(eventState.id)
             }

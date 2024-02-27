@@ -1,11 +1,17 @@
 import { Fragment, useState } from "react";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
+import OrderSuccessModal from "../UI/OrderSuccess";
 
 const Cart = ({ count ,items,onHandleEvent}) => {
     const [showModal, setShowModal] = useState(false);
+    const[orderModal,setOrderModal] = useState(false);
     const handleModal = () => {
         setShowModal(previousState=>!previousState);
+    }
+    const handleOrderModal = () => {
+        setShowModal(false);
+        setOrderModal(previous => !previous);
     }
     return (
         <Fragment>
@@ -55,12 +61,13 @@ const Cart = ({ count ,items,onHandleEvent}) => {
                                             </h4>
 
                                     </div>
-                                    <button>Order Now</button>
+                                    <button onClick={handleOrderModal}>Order Now</button>
                                 </div>
                             }
                         </div>
                 </Modal>
             }
+            {orderModal && <OrderSuccessModal onClose={handleOrderModal } />}
             </Fragment>
     )
 }
