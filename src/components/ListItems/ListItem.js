@@ -12,7 +12,7 @@ const ListItem = ({ data,onAdd,onRemove,updateItemTitle }) => {
     }
     const counterDecrement = event => {
         event.stopPropagation();
-        onRemove(data.id);
+        onRemove(data.id); 
         // if (counter === 0) {
         //     return;
         // }

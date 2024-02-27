@@ -21,14 +21,14 @@ import Loader from "../UI/Loader";
 //     }
 // ]
 
-const Products = ({onAddItem,onRemoveItem}) => {
+const Products = ({onAddItem,onRemoveItem,eventState}) => {
     // const [title, setTitle] = useState("");
     // const [price, setPrice] = useState(0);
     // const [discountedPrice, setDiscountedPrice] = useState(0);
     // const [thumbnail, setThumbnail] = useState("");
-    const [item, setItem] = useState([])
+    const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true);
-    const[presentItems,setPresentItems] = useState([])
+    // const[presentItems,setPresentItems] = useState([])
         
     //                 id: 0,
     //                 title: "Title of this Item 1",
@@ -61,7 +61,7 @@ const Products = ({onAddItem,onRemoveItem}) => {
                     }
                 })
                 // setLoader(false)
-                setItem(transformData);
+                setItems(transformData);
             } catch (error) {
                 // setLoader(false)
                 console.log("Error:", error);
@@ -86,15 +86,28 @@ const Products = ({onAddItem,onRemoveItem}) => {
         }
         fetchItems();
     }, [])
+
+    useEffect(() => {
+        if (eventState.id) {
+            if (eventState.type === 1) {
+                handleAddItem(eventState.id)
+            }
+            else if (eventState.type === -1) {
+                handleRemoveItem(eventState.id)
+            }
+        }
+    },[eventState])
     const handleAddItem = id => {
         // if (presentItems.indexOf(id) > -1) {
         //     return;
         // }
         // setPresentItems([...presentItems,id]);
         // onAddItem();
-        let data = [...item]
+        let data = [...items]
         let index = data.findIndex(i => i.id === id);
-        data[index].quantity+=1
+        data[index].quantity += 1
+        setItems([...data])
+        onAddItem(data[index]);
         
     }
     const handleRemoveItem = id => {
@@ -105,7 +118,15 @@ const Products = ({onAddItem,onRemoveItem}) => {
         //     setPresentItems([...items]);
         //     onRemoveItem();
         // }
-      
+        let data = [...items]
+        let index = data.findIndex(i => i.id === id)
+        if (data[index].quantity !== 0) {
+            data[index].quantity -= 1
+            setItems([...data])
+            onRemoveItem(data[index])
+        }
+        
+       
        
     }
     
@@ -117,10 +138,10 @@ const Products = ({onAddItem,onRemoveItem}) => {
             await axios.patch(`https://e-commerce-react-a4787-default-rtdb.firebaseio.com/items/${itemId}.json`, {
                 title: title
             })
-            let data = [...item]
+            let data = [...items]
             let index = data.findIndex( e => e.id === itemId)
             data[index]['title'] = title
-            setItem(data)
+            setItems(data)
         }
         catch (error) {
             console.log("Error Updating the data!");
@@ -157,8 +178,8 @@ const Products = ({onAddItem,onRemoveItem}) => {
     //     })
     // }
     const handleInput = event => {
-        setItem({
-            ...item,
+        setItems({
+            ...items,
             [event.target.name]: event.target.value
             
         })
@@ -166,7 +187,7 @@ const Products = ({onAddItem,onRemoveItem}) => {
     }
     const submitForm = (event) => {
         event.preventDefault();
-        if (item.discountedPrice > item.price) {
+        if (items.discountedPrice > items.price) {
             alert('Discounted Price cannot be greater than actual price.')
         }
         // setItem({
@@ -176,7 +197,7 @@ const Products = ({onAddItem,onRemoveItem}) => {
         //     thumbnail
 
         // });
-        console.log("item updated",item);
+        console.log("item updated",items);
        
     }
     return (
@@ -184,14 +205,14 @@ const Products = ({onAddItem,onRemoveItem}) => {
          <div className={"product-list"}>
             <div className={"product-wrapper"}>
                 <div className={"form"}>
-                <Form item={item} onChangeInput={handleInput} onFormSubmission={submitForm } />
+                <Form item={items} onChangeInput={handleInput} onFormSubmission={submitForm } />
             </div>
         
             <div>
                      <div> 
                     {/* <ListItem data={item}></ListItem> */}
                      {
-                        item.map(item => {
+                        items.map(item => {
                             return (<ListItem onAdd={handleAddItem} onRemove={handleRemoveItem} key={item.id} data={item} updateItemTitle={updateItemTitle} />)
                         })
                     } 

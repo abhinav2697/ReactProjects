@@ -1,5 +1,5 @@
 import Cart from "../Cart";
-const Header = ({ count }) => {
+const Header = ({ count,items ,onHandleEvent}) => {
     return (
 
         <header>
@@ -40,7 +40,7 @@ const Header = ({ count }) => {
             </svg>
         </div>
         <div className="cart-container">
-            <Cart count={count}/>
+                <Cart count={count} items={items} onHandleEvent={onHandleEvent}/>
         </div>
     </header>
     )

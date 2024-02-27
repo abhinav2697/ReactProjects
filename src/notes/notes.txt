@@ -42,3 +42,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/asy
 portals
 modal
 Fragment
+
+js map,filter,reduce use cases
